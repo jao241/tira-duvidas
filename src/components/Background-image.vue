@@ -17,7 +17,21 @@
 }
 
 .main .background-image {
+  width: 500px;
+  height: 450px;
   position: relative;
   left: 134px;
+}
+
+@media (max-width: 500px) {
+  .main .background-image {
+    width: 250px;
+    height: 250px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(0, 132, 255);
+    border-radius: 100%;
+  }
 }
 </style>
