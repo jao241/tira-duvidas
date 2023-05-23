@@ -12,4 +12,10 @@ header {
 header img {
   margin: 30px 0 0 150px;
 }
+
+@media (max-width: 500px) {
+  header img {
+    margin: 10px 0;
+  }
+}
 </style>
