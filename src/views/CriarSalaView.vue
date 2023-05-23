@@ -7,10 +7,15 @@
         <form action="">
           <h2>Crie sua própria sala</h2>
           <input type="password" name="" id="" placeholder="Insira uma senha" />
-          <router-link to="/sala" class="button">
-            <img src="@/assets/criar-sala-white-icone.svg" alt="criar sala" />
-            Criar sala
-          </router-link>
+          <div>
+            <router-link to="/" class="button-back">
+              <img src="@/assets/arrow_back.svg" alt="voltar-pagina" />
+            </router-link>
+            <router-link to="/sala" class="button">
+              <img src="@/assets/criar-sala-white-icone.svg" alt="criar sala" />
+              Criar sala
+            </router-link>
+          </div>
         </form>
       </section>
     </div>
@@ -64,8 +69,7 @@ a {
 .formularios div {
   font-family: "Poppins", sans-serif;
   display: flex;
-  justify-content: center;
-  width: 70%;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -93,7 +97,7 @@ a {
   font-family: "Poppins", sans-serif;
   background-color: #0555e9c0;
   padding: 10px;
-  margin-bottom: 20px;
+  width: 60%;
   border-color: grey;
   border-radius: 5px;
   border-style: solid;
@@ -107,5 +111,32 @@ a {
 
 .button img {
   margin-right: 10px;
+}
+
+.button-back img {
+  width: 20px;
+  padding: 10px;
+  background-color: #0555e9c0;
+  border-radius: 5px;
+}
+
+@media (max-width: 500px) {
+  .formularios {
+    margin-top: 100px;
+  }
+  .formularios form {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .formularios form h2 {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .formularios form button,
+  .formularios form input,
+  .formularios .btn-criar-sala {
+    font-size: 16px;
+  }
 }
 </style>
