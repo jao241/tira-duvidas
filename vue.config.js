@@ -1,4 +1,6 @@
-module.exports = {
+const { defineConfig } = require("@vue/cli-service");
+
+module.exports = defineConfig({
   pwa: {
     manifestOptions: {
       name: "Tira Dúvidas",
@@ -11,4 +13,4 @@ module.exports = {
     appleMobileWebAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "black",
   },
-};
+});
