@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <logo />
+    <logo class="header" />
     <div class="main">
       <background-image />
       <section class="formularios">
@@ -39,6 +39,10 @@ a {
 
 .main {
   display: flex;
+}
+
+.header {
+  margin: 40px 20px;
 }
 
 .formularios {
