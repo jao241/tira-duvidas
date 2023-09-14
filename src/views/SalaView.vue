@@ -1,12 +1,11 @@
 <template>
   <div class="sala">
     <header>
-      <logo />
+      <logo class="logo" />
       <options />
     </header>
     <section>
       <h2>Faça a sua pergunta</h2>
-      <!-- <textarea name="" id="" placeholder="O que você quer perguntar?"></textarea> -->
       <div class="novaPergunta">
         <input
           type="text"
@@ -16,8 +15,10 @@
           v-model="newQuestion"
         />
         <div class="texto">
-          <img src="@/assets/cadeado.svg" alt="cadeado" />
-          <p>Esta pergunta é anônima</p>
+          <div>
+            <img src="@/assets/cadeado.svg" alt="cadeado" />
+            <p>Esta pergunta é anônima</p>
+          </div>
           <button @click="addQuestion">Enviar</button>
         </div>
       </div>
@@ -26,19 +27,20 @@
     <question
       v-for="question in questions"
       :key="question.id"
-      :question="question"
+      :items="question"
+      @remove="removeQuestions(question.id)"
     />
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import Logo from "../components/LogoPage.vue";
 import Options from "../components/OptionsPage.vue";
 import Question from "../components/QuestionComponent.vue";
 import NoQuestion from "../components/NoQuestion.vue";
 
-const questions = [
+const questions = ref([
   {
     id: 1,
     question: "Qual a diferença entre const, var e let no Javascript?",
@@ -51,30 +53,40 @@ const questions = [
     id: 3,
     question: "O que é Javascript?",
   },
-];
+]);
 
 const newQuestion = ref("");
-// const count = 4;
+let totalQuestions = questions.value.length;
 
 function hasQuestions() {
-  return this.questions.length > 0 ? true : false;
+  return questions.value.length > 0 ? true : false;
 }
 
 function addQuestion() {
   const objQuestion = {
-    id: this.count,
-    question: this.newQuestion,
+    id: totalQuestions,
+    question: newQuestion.value,
   };
 
-  this.questions.unshift(objQuestion);
-  this.count++;
-  this.newQuestion = "";
+  totalQuestions = questions.value.unshift(objQuestion);
+  console.log(questions.value);
+  newQuestion.value = "";
+}
+
+function removeQuestions(id: number) {
+  console.log(id);
 }
 </script>
 
 <style scoped>
 .sala header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sala header .logo {
+  margin: 40px 20px;
 }
 
 .sala section h2 {
@@ -82,7 +94,7 @@ function addQuestion() {
 }
 
 .sala section {
-  width: 80%;
+  width: 90%;
   margin: 20px auto 0 auto;
 }
 
@@ -106,7 +118,6 @@ function addQuestion() {
 
 .sala section button {
   height: 35px;
-  margin-left: 80%;
   padding: 0 14px;
   background-color: #3485ff;
   text-decoration: none;
@@ -123,11 +134,28 @@ function addQuestion() {
 
 .texto {
   align-items: center;
+  padding: 0 10px;
+  justify-content: space-between;
 }
 
 .texto p {
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   color: #a5b0c1;
+}
+
+@media (max-width: 500px) {
+  .sala header {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .sala header .logo {
+    display: none;
+  }
+
+  .texto {
+  }
 }
 </style>

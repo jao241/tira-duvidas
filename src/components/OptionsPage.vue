@@ -26,8 +26,6 @@ a img {
 
 div {
   display: flex;
-  margin-left: 60%;
-  margin-top: 30px;
   height: 80px;
 }
 

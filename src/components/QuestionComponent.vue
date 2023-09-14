@@ -8,19 +8,19 @@
           v-if="options.defaultColor"
         />
         <img src="@/assets/anonimo-cinza.svg" alt="icone anonimo" v-else />
-        <p>{{ question.question }}</p>
+        <p>{{ props.items.question }}</p>
       </div>
       <div class="opcoes" v-if="options.defaultColor">
         <div class="checar">
           <img src="@/assets/check-icone.svg" alt="icone de checado" />
           <p @click="checkQuestion">Marcar como lida</p>
         </div>
-        <div class="remover">
+        <div class="remover" @click="$emit('remove')">
           <img src="@/assets/trash-icone.svg" alt="icone de lixeira" />
           <p>Excluir</p>
         </div>
       </div>
-      <div class="opcoes margin-max" v-else>
+      <div class="opcoes" v-else>
         <div class="checar">
           <img src="@/assets/check-icone.svg" alt="icone de checado" />
           <p>Pergunta lida</p>
@@ -30,26 +30,19 @@
   </section>
 </template>
 
-<script>
-export default {
-  props: {
-    question: Object,
-  },
-  data() {
-    return {
-      options: {
-        defaultColor: true,
-        checkedColor: false,
-      },
-    };
-  },
-  methods: {
-    checkQuestion() {
-      this.options.defaultColor = false;
-      this.options.checkedColor = true;
-    },
-  },
-};
+<script setup>
+import { defineProps, ref } from "vue";
+
+const props = defineProps(["items"]);
+const options = ref({
+  defaultColor: true,
+  checkColor: false,
+});
+
+function checkQuestion() {
+  options.value.defaultColor = false;
+  options.value.checkColor = true;
+}
 </script>
 
 <style scoped>
@@ -92,7 +85,8 @@ p {
 }
 
 .opcoes {
-  margin-left: 80%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .opcoes img {
@@ -113,7 +107,6 @@ p {
   cursor: pointer;
 }
 
-.margin-max {
-  margin-left: 88%;
+@media (max-width: 700px) {
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <logo />
+    <logo class="header" />
     <div class="main">
       <background-image />
       <section class="formularios">
@@ -11,13 +11,13 @@
             placeholder="Código da sala"
             v-model="state.codigo"
           />
-          <button class="button">
+          <router-link to="#" class="button" @click="showNotification()">
             <img
               src="@/assets/entrar-sala-icone.svg"
               alt="Icone entrar na sala"
             />
             Entrar na sala
-          </button>
+          </router-link>
         </form>
         <div>
           <span></span>
@@ -45,6 +45,33 @@ import Logo from "../components/LogoPage.vue";
 const state = ref({
   codigo: "",
 });
+
+function verificaPermissaoNotificacao() {
+  if ("Notification" in window) {
+    if (
+      Notification.permission == "denied" ||
+      Notification.permission == "default"
+    )
+      Notification.requestPermission().then((value) => {
+        console.log("permissão concedida? " + value);
+      });
+  } else {
+    console.log("Sem recursos de notificação");
+  }
+}
+
+function showNotification() {
+  verificaPermissaoNotificacao();
+
+  if (Notification.permission == "granted") {
+    const options = {
+      body: "Teste de envio de notificação",
+      icon: "public/favicon.ico",
+    };
+
+    new Notification("Teste da notificação", options);
+  }
+}
 </script>
 
 <style scoped>
@@ -57,6 +84,10 @@ a {
 
 .main {
   display: flex;
+}
+
+.header {
+  margin: 40px 20px;
 }
 
 .formularios {
