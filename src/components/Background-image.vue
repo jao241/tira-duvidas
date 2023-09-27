@@ -34,4 +34,11 @@
     border-radius: 100%;
   }
 }
+
+@media (max-height: 680px) {
+  .main .background-image {
+    width: 130px;
+    height: 130px;
+  }
+}
 </style>
