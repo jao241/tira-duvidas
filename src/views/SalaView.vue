@@ -74,7 +74,9 @@ function addQuestion() {
 }
 
 function removeQuestions(id: number) {
-  console.log(id);
+  const questionPosition = questions.value.findIndex((value) => value.id == id);
+
+  questions.value.splice(questionPosition, 1);
 }
 </script>
 
