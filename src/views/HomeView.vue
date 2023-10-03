@@ -11,7 +11,7 @@
             placeholder="Código da sala"
             v-model="state.codigo"
           />
-          <router-link to="#" class="button" @click="showNotification()">
+          <router-link to="/sala" class="button">
             <img
               src="@/assets/entrar-sala-icone.svg"
               alt="Icone entrar na sala"
@@ -45,33 +45,6 @@ import Logo from "../components/LogoPage.vue";
 const state = ref({
   codigo: "",
 });
-
-function verificaPermissaoNotificacao() {
-  if ("Notification" in window) {
-    if (
-      Notification.permission == "denied" ||
-      Notification.permission == "default"
-    )
-      Notification.requestPermission().then((value) => {
-        console.log("permissão concedida? " + value);
-      });
-  } else {
-    console.log("Sem recursos de notificação");
-  }
-}
-
-function showNotification() {
-  verificaPermissaoNotificacao();
-
-  if (Notification.permission == "granted") {
-    const options = {
-      body: "Teste de envio de notificação",
-      icon: "public/favicon.ico",
-    };
-
-    new Notification("Teste da notificação", options);
-  }
-}
 </script>
 
 <style scoped>

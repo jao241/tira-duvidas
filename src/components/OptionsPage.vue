@@ -1,8 +1,15 @@
 <template>
   <div>
-    <button class="button">
-      #323243
-      <img src="@/assets/copy.svg" alt="copiar" />
+    <button
+      :class="{
+        roomButton: !clickedButton,
+        roomButtonClicked: clickedButton,
+      }"
+      @click="clipboard()"
+    >
+      <span id="room-id">#323243</span>
+      <img src="@/assets/copy.svg" v-if="!iconImgChange" alt="copiar" />
+      <img src="@/assets/copy-clicked.svg" v-else alt="copiar" />
     </button>
     <router-link to="/" class="button">
       <img src="@/assets/criar-sala-white-icone.svg" alt="criar sala" /> Criar
@@ -10,6 +17,29 @@
     </router-link>
   </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+
+const clickedButton = ref(false);
+const iconImgChange = ref(false);
+
+function clipboard() {
+  const room = document.getElementById("room-id").innerText;
+
+  navigator.clipboard.writeText(room).then(() => {
+    clickedButton.value = true;
+    iconImgChange.value = true;
+
+    setTimeout(() => {
+      clickedButton.value = false;
+      iconImgChange.value = false;
+    }, 1500);
+  });
+
+  console.log(room);
+}
+</script>
 
 <style scoped>
 a {
@@ -29,6 +59,8 @@ div {
   height: 80px;
 }
 
+.roomButton,
+.roomButtonClicked,
 .button {
   font-family: "Poppins", sans-serif;
   padding: 10px;
@@ -45,11 +77,18 @@ div {
   margin: 10px;
 }
 
-button:nth-child(1) {
+.roomButton {
   background-color: white;
   color: #0555e9c0;
   border-style: solid;
   border-color: #0555e9c0;
+}
+
+.roomButtonClicked {
+  background-color: white;
+  color: #25b900a8;
+  border-style: solid;
+  border-color: #25b900a8;
 }
 
 button img {
